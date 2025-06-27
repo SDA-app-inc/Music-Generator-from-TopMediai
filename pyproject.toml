@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "musicai"
+version = "0.1.0"
+description = ""
+authors = ["Hovhannes <h.haroyan>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.13"
+uvicorn = "^0.34.3"
+asyncpg = "^0.30.0"
+python-multipart = "^0.0.20"
+python-json-logger = "^3.3.0"
+pydantic-settings = "^2.10.0"
+setuptools = "^80.9.0"
+sqlalchemy = "^2.0.41"
+alembic = "^1.16.2"
+sqladmin = "^0.20.1"
+greenlet = "^3.2.3"
+psycopg = "^3.2.9"
+socksio = "^1.0.0"
+playwright = "^1.53.0"
+httpx = "^0.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+
+
