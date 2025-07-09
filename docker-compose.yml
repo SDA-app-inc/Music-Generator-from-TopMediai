@@ -7,12 +7,12 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: BlAnterAST
       POSTGRES_DB: music_ai
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -23,17 +23,30 @@ services:
     build: .
     container_name: top_music_ai
     command: sh -c "uvicorn app.manage:init --host 0.0.0.0 --port 8080"
-    ports:
+    expose:
       - "8080:8080"
     volumes:
       - .:/app
       - ./topmediai_user_data:/app/topmediai_user_data
+    environment:
+      DATABASE_URL: postgres+asyncpg://postgres:BlAnterAST@db:5432/music_ai
+      PYTHONUNBUFFERED: 1
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      DATABASE_URL: postgres+asyncpg://postgres:postgres@db:5432/music_ai
-      PYTHONUNBUFFERED: 1
+
+  nginx:
+    image: nginx:alpine
+    container_name: top_music_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      fastapi_app:
+        condition: service_started
+    expose:
+      - "80"
 
 volumes:
   postgres_data:
