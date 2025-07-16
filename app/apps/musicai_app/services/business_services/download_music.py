@@ -1,4 +1,4 @@
-from http.client import HTTPException
+from fastapi import HTTPException
 
 from fastapi.responses import FileResponse
 import os
@@ -17,7 +17,7 @@ def download_music(title: str):
         agent.stop()
 
     if not file_path or not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="Файл не найден")
+        return HTTPException(status_code=404, detail="Файл не найден")
 
     return FileResponse(
         path=file_path,
