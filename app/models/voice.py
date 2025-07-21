@@ -11,3 +11,4 @@ class Voice(Base):
     speaker: Mapped[str] = mapped_column(nullable=False)
     avatar_url: Mapped[str] = mapped_column(nullable=True)
     avatar_url_webp: Mapped[str] = mapped_column(nullable=True)
+    audition_url: Mapped[str] = mapped_column(nullable=True)
